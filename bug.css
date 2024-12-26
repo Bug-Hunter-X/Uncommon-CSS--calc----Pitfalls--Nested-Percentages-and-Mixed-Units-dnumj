@@ -1,0 +1,27 @@
+The CSS property `calc()` is used to perform calculations within CSS. However, there is a potential issue when using `calc()` with percentage values in nested contexts.  For example:
+
+```css
+.parent {
+  width: 50%;
+}
+
+.child {
+  width: calc(50% + 20px);
+}
+```
+
+In this scenario, the `50%` in `.child`'s `calc()` will be relative to the *parent's* width, not the viewport or document width.  If the parent's width is less than half the viewport, the calculation may not yield the expected result.  Unexpected behavior can also occur if there are multiple nested elements using `calc()` with percentages.
+
+Another issue can arise from using `calc()` with units other than pixels, particularly in combination with percentages.
+
+```css
+.parent {
+  width: 50vw;
+}
+
+.child {
+  width: calc(50% + 10em);
+}
+```
+
+The combination of `vw` and `em` units can cause unexpected results depending on the browser's font size and viewport width.  The `calc()` function might not produce the intended width, leading to layout inconsistencies.
